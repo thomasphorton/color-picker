@@ -1,0 +1,20 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-color-picker-dev-124719-authRole",
+            "UnauthRoleArn": "arn:aws:iam::484448430090:role/amplify-color-picker-dev-124719-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::484448430090:role/amplify-color-picker-dev-124719-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-color-picker-dev-124719-deployment",
+            "UnauthRoleName": "amplify-color-picker-dev-124719-unauthRole",
+            "StackName": "amplify-color-picker-dev-124719",
+            "StackId": "arn:aws:cloudformation:us-west-2:484448430090:stack/amplify-color-picker-dev-124719/cb9972d0-7113-11ea-ae04-0aad1cb40640",
+            "AmplifyAppId": "d26o79twe1anbe"
+        },
+        "categories": {
+            "auth": {
+                "colorpicker28dbcb28": {}
+            }
+        }
+    }
+}

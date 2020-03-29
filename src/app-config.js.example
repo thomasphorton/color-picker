@@ -1,0 +1,5 @@
+const appconfig = {
+  iotHost: '<AWS IoT Endpoint'
+};
+
+export default appconfig;
