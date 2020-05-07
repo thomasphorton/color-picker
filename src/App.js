@@ -11,6 +11,10 @@ import awsconfig from './aws-exports';
 import appconfig from './app-config';
 Amplify.configure(awsconfig);
 
+const devices = [{
+  id: 'led-lightstrip-1'
+}];
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +47,8 @@ class App extends React.Component {
             protocol: 'wss',
             accessKeyId: credentials.data.Credentials.AccessKeyId,
             secretKey: credentials.data.Credentials.SecretKey,
-            sessionToken: credentials.data.Credentials.SessionToken
+            sessionToken: credentials.data.Credentials.SessionToken,
+            debug: true
           };
 
           // console.log(thingShadowOptions);
@@ -64,9 +69,11 @@ class App extends React.Component {
   }
 
   render() {
-    return <div className="App">
-      <LightManager client={this.state.client} deviceId="led-lightstrip-1"/>
-    </div>
+    return (<div className="App">
+      {devices.map((device, i) => {
+        return <LightManager key={i} client={this.state.client} deviceId={ device.id} />
+      })}
+    </div>)
   }
 }
 
