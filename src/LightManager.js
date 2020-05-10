@@ -3,10 +3,10 @@ import Amplify, { API, graphqlOperation } from 'aws-amplify';
 import awsconfig from './aws-exports';
 import RangePicker from './RangePicker';
 import ColorPicker from './ColorPicker';
+import { Toggle } from 'react-toggle-component';
 
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
-import * as subscriptions from './graphql/subscriptions';
 
 Amplify.configure(awsconfig);
 
@@ -14,48 +14,58 @@ class LightManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: '#FFFFFF',
-      number: 10,
+      color: undefined,
+      number: undefined,
+      lightsOn: undefined,
       registered: false
     };
   }
 
   componentDidMount = async () => {
-    // this.device = await API.graphql(graphqlOperation(queries.getDevice));
-    // console.log(this.device);
+    let thingName = this.props.device.thingName;
+    console.log(`Getting device shadow of '${thingName}'`);
+    console.log({ thingName });
+    let res = await API.graphql(graphqlOperation(queries.getDeviceShadow, { thingName }));
+
+    console.log(res);
+    let deviceShadow = res.data.getDeviceShadow.shadow;
+
+    let color = deviceShadow.reported.color;
+   
+    if (!color.startsWith('#')) {
+      color = `#${color}`;
+    }
+    
+    this.setState({ color });
+    this.setState({ number: deviceShadow.reported.number });
+    this.setState({ lightsOn: deviceShadow.reported.lightsOn });
+    this.setState({ registered: true });
   }
 
-  componentDidUpdate() {
-    if (this.props.client && !this.state.registered) {
-      let that = this;
-      this.props.client.register('led-lightstrip-1', {}, function(err, failedTopics) {
-        if (err) console.log(err);
-        if (failedTopics) console.log(failedTopics);
-        console.log('registered');
-        that.setState({ registered: true });
-     });
-    }
-  }
+  componentDidUpdate() {}
 
   updateThing = async () => {
-    let desired = {
-      color: this.state.color?.substring(1),
-      number: this.state.number
+    let thingName = this.props.device.thingName;
+    console.log(`Updating desired state of '${thingName}'`);
+    let params = {
+      thingName,
+      state: {
+        color: this.state.color?.substring(1),
+        number: this.state.number,
+        lightsOn: this.state.lightsOn
+      }
     };
 
-    console.log(`updating state to ${JSON.stringify(desired)}`);
+    let res = await API.graphql(graphqlOperation(mutations.updateDesiredState, params))
+    let desiredState = res.data.updateDesiredState;
 
-    this.props.client.update('led-lightstrip-1', {
-      state: { desired }
-    });
+    console.log(`Updated desired state of '${thingName}'`);
+    console.log(desiredState);
+  }
 
-    const deviceDetails = {
-      id: `59180995-a522-4a50-9ee5-003871e5747f`,
-      name: `led-lightstrip-1`,
-      state: JSON.stringify(desired)
-    }
-
-    const newDevice = await API.graphql(graphqlOperation(mutations.updateDevice, {input: deviceDetails}));
+  handleToggleChange = (e) => {
+    this.setState({ lightsOn: !e.target.checked });
+    this.updateThing();
   }
 
   handleColorChange = (color) => {
@@ -63,38 +73,38 @@ class LightManager extends React.Component {
     this.updateThing();
   };
 
-  handleNumberChange = (e) => {
-    let number = e.nativeEvent.target.value;
+  handleNumberChangeComplete = (number) => {
     this.setState({ number })
     this.updateThing();
   };
 
+  handleNumberChange = (number) => {
+    this.setState({ number });
+  }
+
   render() {
-    if (this.state.registered) {
-      return <div>
-        <ColorPicker
-          color={ `${this.state.color}` }
-          onChangeComplete={ this.handleColorChange }
-        />
-        <RangePicker />
-        <div>
-          <input 
-            onChange={this.handleNumberChange}
-            type="range"
-            id="number"
-            name="number"
-            min="0"
-            max="150">
-          </input>
-          <label htmlFor="number">Number of Lights: {this.state.number}</label>
-        </div>
+    return(
+      <div>
+        {this.state.registered &&
+          <div>
+            <h2>{this.props.device.friendlyName}</h2>
+            <Toggle
+              name={ `${this.props.device.thingName}-on-off`}
+              onToggle={ this.handleToggleChange }
+            />
+            <ColorPicker
+              color={ `${this.state.color}` }
+              onChangeComplete={ this.handleColorChange }
+            />
+            <RangePicker
+              number={ `${this.state.number}` }
+              onChange={ this.handleNumberChange }
+              onChangeComplete={ this.handleNumberChangeComplete }
+          />
+          </div>
+        }
       </div>
-    }
-    else {
-      return <div>
-        <p>Loading...</p>
-      </div>
-    }
+    )
   }
 
 }

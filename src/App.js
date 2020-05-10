@@ -2,17 +2,20 @@ import React from 'react';
 import './App.css';
 import LightManager from './LightManager';
 
-import { thingShadow as ThingShadowClient } from 'aws-iot-device-sdk';
-
-import Amplify, { Auth } from 'aws-amplify';
-import IoT from 'aws-sdk/clients/iot';
+import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
+
+import { Container, Row, Col } from 'react-grid-system';
+
 import awsconfig from './aws-exports';
-import appconfig from './app-config';
 Amplify.configure(awsconfig);
 
 const devices = [{
-  id: 'led-lightstrip-1'
+  id: '59180995-a522-4a50-9ee5-003871e5747f',
+  friendlyName: 'LED Lightstrip 1',
+  thingName: 'led-lightstrip-1',
+  thingType: 'led-lightstrip',
+  owner: 'thomasphorton@gmail.com'
 }];
 
 class App extends React.Component {
@@ -21,58 +24,24 @@ class App extends React.Component {
     this.state = { client: null };
   }
 
-  componentDidMount() {
-    Auth.currentCredentials().then(credentials => {
-
-      let iot = new IoT({
-        region: awsconfig.aws_project_region,
-        credentials
-      });
-
-      let attachPolicyParams = {
-        policyName: 'mariah-Policy',
-        target: credentials._identityId
-      };
-
-      iot.attachPolicy(attachPolicyParams, (err, data) => {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          console.log(credentials._identityId);
-          let thingShadowOptions = {
-            region: awsconfig.aws_project_region,
-            host: appconfig.iotHost,
-            port: 443,
-            protocol: 'wss',
-            accessKeyId: credentials.data.Credentials.AccessKeyId,
-            secretKey: credentials.data.Credentials.SecretKey,
-            sessionToken: credentials.data.Credentials.SessionToken,
-            debug: true
-          };
-
-          // console.log(thingShadowOptions);
-          let client = ThingShadowClient(thingShadowOptions)
-
-          client.on('connect', () => {
-            console.log('client connected');
-          })
-
-          client.on('status', (thingName, stat, clientToken, stateObject) => {
-            console.log(`received ${stat} on ${thingName}: ${JSON.stringify(stateObject)}`);
-          });
-
-          this.setState({client});
-        }
-      });
-    })
-  }
-
   render() {
     return (<div className="App">
-      {devices.map((device, i) => {
-        return <LightManager key={i} client={this.state.client} deviceId={ device.id} />
-      })}
+      <Container>
+        <Row>
+          {devices.map((device, i) => {
+            switch(device.thingType) {
+              case 'led-lightstrip':
+                return <Col sm={4} key={i}> 
+                  <LightManager  client={this.state.client} device={ device } />
+                </Col>
+              default:
+                return <Col sm={4} key={i}> 
+                  <div><p>Unknown device type</p></div>
+                </Col> 
+            }
+          })}
+        </Row>
+      </Container>
     </div>)
   }
 }

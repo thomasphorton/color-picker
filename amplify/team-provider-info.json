@@ -16,5 +16,28 @@
                 "colorpicker28dbcb28": {}
             }
         }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-color-picker-prod-182513-authRole",
+            "UnauthRoleArn": "arn:aws:iam::484448430090:role/amplify-color-picker-prod-182513-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::484448430090:role/amplify-color-picker-prod-182513-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "amplify-color-picker-prod-182513-deployment",
+            "UnauthRoleName": "amplify-color-picker-prod-182513-unauthRole",
+            "StackName": "amplify-color-picker-prod-182513",
+            "StackId": "arn:aws:cloudformation:us-west-2:484448430090:stack/amplify-color-picker-prod-182513/f5106d20-9243-11ea-b93a-0231aca8377c",
+            "AmplifyAppId": "d26o79twe1anbe"
+        },
+        "categories": {
+            "auth": {
+                "colorpicker28dbcb28": {}
+            },
+            "function": {
+                "updateDesiredState": {},
+                "updateReportedState": {},
+                "getDeviceShadow": {}
+            }
+        }
     }
 }

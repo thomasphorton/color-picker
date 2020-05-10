@@ -1,5 +1,42 @@
 type Device @model {
   id: ID!
-  name: String!
-  state: String
+  thingName: String!
+  friendlyName: String
+  owner: String
+}
+
+type DeviceShadow {
+  thingName: String!
+  shadow: DeviceShadowDocument
+}
+
+type DeviceShadowDocument {
+  desired: DeviceState
+  reported: DeviceState
+}
+
+type DeviceState {
+  color: String
+  number: Int
+  lightsOn: Boolean
+}
+
+input DeviceStateInput {
+  color: String
+  number: Int
+  lightsOn: Boolean
+}
+
+type Mutation {
+  updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}")
+  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}")
+}
+
+type Query {
+  getDeviceShadow(thingName: String): DeviceShadow @function(name: "getDeviceShadow-${env}")
+}
+
+type Subscription {
+  updatedDevice: DeviceShadow
+  @aws_subscribe(mutations: ["updateReportedState"])
 }

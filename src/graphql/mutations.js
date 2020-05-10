@@ -1,6 +1,24 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const updateDesiredState = /* GraphQL */ `
+  mutation UpdateDesiredState($thingName: String, $state: DeviceStateInput) {
+    updateDesiredState(thingName: $thingName, state: $state) {
+      color
+      number
+      lightsOn
+    }
+  }
+`;
+export const updateReportedState = /* GraphQL */ `
+  mutation UpdateReportedState($thingName: String, $state: DeviceStateInput) {
+    updateReportedState(thingName: $thingName, state: $state) {
+      color
+      number
+      lightsOn
+    }
+  }
+`;
 export const createDevice = /* GraphQL */ `
   mutation CreateDevice(
     $input: CreateDeviceInput!
@@ -8,8 +26,9 @@ export const createDevice = /* GraphQL */ `
   ) {
     createDevice(input: $input, condition: $condition) {
       id
-      name
-      state
+      thingName
+      friendlyName
+      owner
     }
   }
 `;
@@ -20,8 +39,9 @@ export const updateDevice = /* GraphQL */ `
   ) {
     updateDevice(input: $input, condition: $condition) {
       id
-      name
-      state
+      thingName
+      friendlyName
+      owner
     }
   }
 `;
@@ -32,8 +52,9 @@ export const deleteDevice = /* GraphQL */ `
   ) {
     deleteDevice(input: $input, condition: $condition) {
       id
-      name
-      state
+      thingName
+      friendlyName
+      owner
     }
   }
 `;
