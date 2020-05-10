@@ -1,5 +1,10 @@
 {
-  "key1": "value1",
-  "key2": "value2",
-  "key3": "value3"
+  "arguments": {
+    "thingName": "led-lightstrip-1",
+    "state": {
+      "color": "F0F0F0",
+      "number": 5,
+      "lightsOn": true
+    }
+  }
 }
