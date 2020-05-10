@@ -63,7 +63,7 @@
 				"Timeout": "25",
 				"Code": {
 					"S3Bucket": "amplify-color-picker-prod-182513-deployment",
-					"S3Key": "amplify-builds/getDeviceShadow-6c4673445172506f4a62-build.zip"
+					"S3Key": "amplify-builds/getDeviceShadow-714b4a4a773430447746-build.zip"
 				}
 			}
 		},
