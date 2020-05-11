@@ -87,21 +87,27 @@ class LightManager extends React.Component {
         {this.state.registered &&
           <div>
             <h2>{this.props.device.friendlyName}</h2>
-            <p>{JSON.stringify(this.state, null, 2)}</p>
-            <Toggle
-              checked={this.state.lightsOn}
-              name={ `${this.props.device.thingName}-on-off`}
-              onToggle={ this.handleToggleChange }
-            />
-            <ColorPicker
-              color={ `${this.state.color}` }
-              onChangeComplete={ this.handleColorChange }
-            />
-            <RangePicker
-              number={ `${this.state.number}` }
-              onChange={ this.handleNumberChange }
-              onChangeComplete={ this.handleNumberChangeComplete }
-          />
+            <label htmlFor={ `${this.props.device.thingName}-on-off`}>
+              On/Off
+              <Toggle
+                checked={this.state.lightsOn}
+                name={ `${this.props.device.thingName}-on-off`}
+                onToggle={ this.handleToggleChange }
+              />
+            </label>
+            { this.state.lightsOn &&
+              <div>
+                <ColorPicker
+                  color={ `${this.state.color}` }
+                  onChangeComplete={ this.handleColorChange }
+                />
+                <RangePicker
+                  number={ `${this.state.number}` }
+                  onChange={ this.handleNumberChange }
+                  onChangeComplete={ this.handleNumberChangeComplete }
+                />
+              </div>
+            }
           </div>
         }
       </div>
