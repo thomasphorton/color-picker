@@ -42,6 +42,9 @@ class App extends React.Component {
           })}
         </Row>
       </Container>
+      <div>
+        <p>a <a href='https://thomasphorton.com/'>thomasphorton</a> thing</p>
+      </div>
     </div>)
   }
 }

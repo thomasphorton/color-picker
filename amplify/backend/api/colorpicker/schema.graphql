@@ -29,14 +29,9 @@ input DeviceStateInput {
 
 type Mutation {
   updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}")
-  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}")
+  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}") @aws_iam @aws_cognito_user_pools
 }
 
 type Query {
   getDeviceShadow(thingName: String): DeviceShadow @function(name: "getDeviceShadow-${env}")
-}
-
-type Subscription {
-  updatedDevice: DeviceShadow
-  @aws_subscribe(mutations: ["updateReportedState"])
 }

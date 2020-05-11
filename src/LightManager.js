@@ -88,7 +88,7 @@ class LightManager extends React.Component {
           <div>
             <h2>{this.props.device.friendlyName}</h2>
             <label htmlFor={ `${this.props.device.thingName}-on-off`}>
-              On/Off
+              Off/On
               <Toggle
                 checked={this.state.lightsOn}
                 name={ `${this.props.device.thingName}-on-off`}
@@ -101,6 +101,7 @@ class LightManager extends React.Component {
                   color={ `${this.state.color}` }
                   onChangeComplete={ this.handleColorChange }
                 />
+                <h3>Number of Lights: {this.state.number}</h3>
                 <RangePicker
                   number={ `${this.state.number}` }
                   onChange={ this.handleNumberChange }
