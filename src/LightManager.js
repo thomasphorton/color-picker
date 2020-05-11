@@ -5,6 +5,8 @@ import RangePicker from './RangePicker';
 import ColorPicker from './ColorPicker';
 import { Toggle } from 'react-toggle-component';
 
+// import "react-toggle/style.css"
+
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
 
@@ -46,7 +48,7 @@ class LightManager extends React.Component {
 
   updateThing = async () => {
     let thingName = this.props.device.thingName;
-    console.log(`Updating desired state of '${thingName}'`);
+
     let params = {
       thingName,
       state: {
@@ -58,24 +60,21 @@ class LightManager extends React.Component {
 
     let res = await API.graphql(graphqlOperation(mutations.updateDesiredState, params))
     let desiredState = res.data.updateDesiredState;
-
-    console.log(`Updated desired state of '${thingName}'`);
-    console.log(desiredState);
   }
 
   handleToggleChange = (e) => {
-    this.setState({ lightsOn: !e.target.checked });
-    this.updateThing();
+    let lightsOn = e.target.checked;
+   
+    // This state change takes longer for some reason
+    this.setState({ lightsOn }, this.updateThing);
   }
 
   handleColorChange = (color) => {
-    this.setState({ color: color.hex });
-    this.updateThing();
+    this.setState({ color: color.hex }, this.updateThing);
   };
 
   handleNumberChangeComplete = (number) => {
-    this.setState({ number })
-    this.updateThing();
+    this.setState({ number }, this.updateThing);
   };
 
   handleNumberChange = (number) => {
@@ -88,7 +87,9 @@ class LightManager extends React.Component {
         {this.state.registered &&
           <div>
             <h2>{this.props.device.friendlyName}</h2>
+            <p>{JSON.stringify(this.state, null, 2)}</p>
             <Toggle
+              checked={this.state.lightsOn}
               name={ `${this.props.device.thingName}-on-off`}
               onToggle={ this.handleToggleChange }
             />

@@ -11,7 +11,7 @@
 ## LEDs
 * clean up LED control ui
     * <del>use nicer color slider
-    * add option for LED brightness dithering
+* add option for LED brightness dithering
 * <del>create an on/off switch for lights
 * <del>update LED state schema (led-lightstrip-state.json)
 
