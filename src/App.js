@@ -40,8 +40,9 @@ class App extends React.Component {
             <div style={{maxWidth:"100%"}}>
             <ReactTwitchEmbedVideo
               channel="thomasphorton"
+              layout="video"
               height="400"
-              width="400"/>
+              width="100%"/>
             </div>
           </Col>
         </Row>
