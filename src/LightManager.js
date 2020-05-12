@@ -109,6 +109,7 @@ class LightManager extends React.Component {
               </div>
             }
           </div>
+          
         }
       </div>
     )
