@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 import LightManager from './LightManager';
 
 import { Container, Row, Col } from 'react-grid-system';
@@ -22,7 +23,6 @@ class App extends React.Component {
     return (<div className="App">
       <Container>
         <Row>
-          <Col sm={4}></Col>
           {devices.map((device, i) => {
             switch(device.thingType) {
               case 'led-lightstrip':
@@ -35,8 +35,16 @@ class App extends React.Component {
                 </Col> 
             }
           })}
+          <Col sm={8}>
+            <h2>Live Stream</h2>
+            <div style={{maxWidth:"100%"}}>
+            <ReactTwitchEmbedVideo
+              channel="thomasphorton"
+              height="400"
+              width="400"/>
+            </div>
+          </Col>
         </Row>
-        
       </Container>
       <div>
       
