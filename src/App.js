@@ -36,18 +36,7 @@ class App extends React.Component {
             }
           })}
         </Row>
-        <Row>
-          <Col sm={4}>
-            <iframe
-              src="https://player.twitch.tv/?thomasphorton&parent=master.d26o79twe1anbe.amplifyapp.com"
-              height="300"
-              width="400"
-              frameborder="0"
-              scrolling="no"
-              allowfullscreen="true">
-            </iframe>
-          </Col>
-        </Row>
+        
       </Container>
       <div>
       
