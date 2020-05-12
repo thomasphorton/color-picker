@@ -1,15 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const updateReportedState = /* GraphQL */ `
-  mutation UpdateReportedState($thingName: String, $state: DeviceStateInput) {
-    updateReportedState(thingName: $thingName, state: $state) {
-      color
-      number
-      lightsOn
-    }
-  }
-`;
 export const createDevice = /* GraphQL */ `
   mutation CreateDevice(
     $input: CreateDeviceInput!

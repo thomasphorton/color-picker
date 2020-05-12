@@ -27,6 +27,7 @@ exports.handler = async (event) => {
     console.log(process.env.AWS_ACCESS_KEY_ID);
     console.log(process.env.AWS_SECRET_ACCESS_KEY);
     console.log(process.env.AWS_SESSION_TOKEN);
+    console.log(process.env.API_COLORPICKER_GRAPHQLAPIENDPOINTOUTPUT);
 
     const graphqlClient = new appsync.AWSAppSyncClient({
       url: process.env.API_COLORPICKER_GRAPHQLAPIENDPOINTOUTPUT,

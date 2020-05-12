@@ -1,6 +1,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onUpdateDesiredState = /* GraphQL */ `
+  subscription OnUpdateDesiredState(
+    $thingName: String
+    $state: DeviceStateInput
+  ) {
+    onUpdateDesiredState(thingName: $thingName, state: $state) {
+      color
+      number
+      lightsOn
+    }
+  }
+`;
 export const onCreateDevice = /* GraphQL */ `
   subscription OnCreateDevice {
     onCreateDevice {

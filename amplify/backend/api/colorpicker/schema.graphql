@@ -27,17 +27,21 @@ input DeviceStateInput {
   lightsOn: Boolean
 }
 
-type Mutation {
-  updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}") @aws_cognito_user_pools
-  @auth(rules: [
-    {allow: public, provider: iam}
-  ])
-  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}") @aws_iam
-}
-
 type Query {
   getDeviceShadow(thingName: String): DeviceShadow @function(name: "getDeviceShadow-${env}") @aws_cognito_user_pools
   @auth(rules: [
     {allow: public, provider: iam}
   ])
+}
+
+type Mutation {
+  updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}") @aws_cognito_user_pools
+  @auth(rules: [
+    {allow: public, provider: iam}
+  ])
+}
+
+type Subscription {
+  onUpdateDesiredState(thingName: String): DeviceState
+  @aws_subscribe(mutations: ["updateDesiredState"])
 }
