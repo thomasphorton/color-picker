@@ -5,6 +5,7 @@ This is a companion app for my LED Lightstrip. After authenticating, users are a
 * [Device Firmware (ESP8266/WS2812B)](https://github.com/thomasphorton/esp8266-lights)
 
 ## Architecture/Data Flow
+![Architecture Diagram](./docs/architecture.png)
 * React frontend with AWS Amplify requests device state from AWS AppSync API and updates UI.
 * Frontend controls trigger GraphQL mutations that are mapped to Lambda custom resolvers.
 * Lambda resolvers interact with AWS IoT Thing Shadow RESTful API to set desired device state.
