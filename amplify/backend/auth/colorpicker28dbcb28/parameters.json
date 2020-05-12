@@ -1,6 +1,6 @@
 {
     "identityPoolName": "colorpicker28dbcb28_identitypool_28dbcb28",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "colorp28dbcb28",
     "userPoolName": "colorpicker28dbcb28_userpool_28dbcb28",
     "autoVerifiedAttributes": [
@@ -47,7 +47,6 @@
     "useDefault": "manual",
     "userPoolGroupList": [],
     "dependsOn": [],
-    "thirdPartyAuth": false,
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{}",
@@ -55,5 +54,6 @@
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "thirdPartyAuth": false
 }

@@ -1,11 +1,10 @@
 import React from 'react';
 import Amplify, { API, graphqlOperation } from 'aws-amplify';
+
 import awsconfig from './aws-exports';
 import RangePicker from './RangePicker';
 import ColorPicker from './ColorPicker';
 import { Toggle } from 'react-toggle-component';
-
-// import "react-toggle/style.css"
 
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
@@ -33,7 +32,7 @@ class LightManager extends React.Component {
     let deviceShadow = res.data.getDeviceShadow.shadow;
 
     let color = deviceShadow.reported.color;
-   
+    
     if (!color.startsWith('#')) {
       color = `#${color}`;
     }
@@ -58,14 +57,11 @@ class LightManager extends React.Component {
       }
     };
 
-    let res = await API.graphql(graphqlOperation(mutations.updateDesiredState, params))
-    let desiredState = res.data.updateDesiredState;
+    await API.graphql(graphqlOperation(mutations.updateDesiredState, params))
   }
 
   handleToggleChange = (e) => {
     let lightsOn = e.target.checked;
-   
-    // This state change takes longer for some reason
     this.setState({ lightsOn }, this.updateThing);
   }
 

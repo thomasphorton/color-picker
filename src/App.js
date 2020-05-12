@@ -10,6 +10,8 @@ import { Container, Row, Col } from 'react-grid-system';
 import awsconfig from './aws-exports';
 Amplify.configure(awsconfig);
 
+
+
 const devices = [{
   id: '59180995-a522-4a50-9ee5-003871e5747f',
   friendlyName: 'LED Lightstrip 1',
@@ -28,6 +30,7 @@ class App extends React.Component {
     return (<div className="App">
       <Container>
         <Row>
+          <Col sm={4}></Col>
           {devices.map((device, i) => {
             switch(device.thingType) {
               case 'led-lightstrip':
