@@ -43,6 +43,7 @@ class App extends React.Component {
         </Row>
       </Container>
       <div>
+        <p>see more about this on <a href='https://github.com/thomasphorton/color-picker'>github</a></p>
         <p>a <a href='https://thomasphorton.com/'>thomasphorton</a> thing</p>
       </div>
     </div>)
