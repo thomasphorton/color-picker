@@ -2,15 +2,7 @@ import React from 'react';
 import './App.css';
 import LightManager from './LightManager';
 
-import Amplify from 'aws-amplify';
-import { withAuthenticator } from 'aws-amplify-react';
-
 import { Container, Row, Col } from 'react-grid-system';
-
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
-
-
 
 const devices = [{
   id: '59180995-a522-4a50-9ee5-003871e5747f',
@@ -53,4 +45,4 @@ class App extends React.Component {
   }
 }
 
-export default withAuthenticator(App, true);
+export default App;

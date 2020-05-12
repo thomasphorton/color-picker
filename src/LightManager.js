@@ -1,13 +1,16 @@
 import React from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify';
 
 import awsconfig from './aws-exports';
+
 import RangePicker from './RangePicker';
 import ColorPicker from './ColorPicker';
 import { Toggle } from 'react-toggle-component';
 
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
+
+awsconfig["aws_appsync_authenticationType"] = "AWS_IAM";
 
 Amplify.configure(awsconfig);
 

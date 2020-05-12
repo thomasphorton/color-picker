@@ -5,17 +5,17 @@ type Device @model {
   owner: String
 }
 
-type DeviceShadow {
+type DeviceShadow @aws_iam @aws_cognito_user_pools {
   thingName: String!
   shadow: DeviceShadowDocument
 }
 
-type DeviceShadowDocument {
+type DeviceShadowDocument @aws_iam @aws_cognito_user_pools{
   desired: DeviceState
   reported: DeviceState
 }
 
-type DeviceState {
+type DeviceState @aws_iam @aws_cognito_user_pools {
   color: String
   number: Int
   lightsOn: Boolean
@@ -28,10 +28,16 @@ input DeviceStateInput {
 }
 
 type Mutation {
-  updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}")
-  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}") @aws_iam @aws_cognito_user_pools
+  updateDesiredState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateDesiredState-${env}") @aws_cognito_user_pools
+  @auth(rules: [
+    {allow: public, provider: iam}
+  ])
+  updateReportedState(thingName: String, state: DeviceStateInput): DeviceState! @function(name: "updateReportedState-${env}") @aws_iam
 }
 
 type Query {
-  getDeviceShadow(thingName: String): DeviceShadow @function(name: "getDeviceShadow-${env}")
+  getDeviceShadow(thingName: String): DeviceShadow @function(name: "getDeviceShadow-${env}") @aws_cognito_user_pools
+  @auth(rules: [
+    {allow: public, provider: iam}
+  ])
 }
