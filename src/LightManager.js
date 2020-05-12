@@ -1,5 +1,5 @@
 import React from 'react';
-import Amplify, { API, graphqlOperation } from 'aws-amplify';
+import Amplify, { API, Auth, graphqlOperation } from 'aws-amplify';
 
 import awsconfig from './aws-exports';
 
@@ -9,7 +9,6 @@ import { Toggle } from 'react-toggle-component';
 
 import * as queries from './graphql/queries';
 import * as mutations from './graphql/mutations';
-import * as subscriptions from './graphql/subscriptions';
 
 awsconfig["aws_appsync_authenticationType"] = "AWS_IAM";
 
@@ -45,7 +44,6 @@ class LightManager extends React.Component {
     this.setState({ number: deviceShadow.reported.number });
     this.setState({ lightsOn: deviceShadow.reported.lightsOn });
     this.setState({ registered: true });
-
   }
 
   componentDidUpdate() {}

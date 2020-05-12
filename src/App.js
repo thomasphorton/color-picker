@@ -36,8 +36,21 @@ class App extends React.Component {
             }
           })}
         </Row>
+        <Row>
+          <Col sm={4}>
+            <iframe
+              src="https://player.twitch.tv/?thomasphorton&parent=master.d26o79twe1anbe.amplifyapp.com"
+              height="300"
+              width="400"
+              frameborder="0"
+              scrolling="no"
+              allowfullscreen="true">
+            </iframe>
+          </Col>
+        </Row>
       </Container>
       <div>
+      
         <p>check out the live feed of the lights <a href="https://twitch.tv/thomasphorton">on twitch</a></p>
         <p>see more about this on <a href='https://github.com/thomasphorton/color-picker'>github</a></p>
         <p>a <a href='https://thomasphorton.com/'>thomasphorton</a> thing</p>
