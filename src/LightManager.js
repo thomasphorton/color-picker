@@ -54,7 +54,7 @@ class LightManager extends React.Component {
     let params = {
       thingName,
       state: {
-        color: this.state.color?.substring(1),
+        color: this.state.color,
         number: this.state.number,
         lightsOn: this.state.lightsOn
       }
