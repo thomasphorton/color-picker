@@ -44,6 +44,7 @@ export const updateDesiredState = /* GraphQL */ `
   mutation UpdateDesiredState($thingName: String, $state: DeviceStateInput) {
     updateDesiredState(thingName: $thingName, state: $state) {
       color
+      brightness
       number
       lightsOn
     }

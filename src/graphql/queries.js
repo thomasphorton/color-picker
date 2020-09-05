@@ -35,11 +35,13 @@ export const getDeviceShadow = /* GraphQL */ `
       shadow {
         desired {
           color
+          brightness
           number
           lightsOn
         }
         reported {
           color
+          brightness
           number
           lightsOn
         }

@@ -7,9 +7,9 @@ class RangePicker extends React.Component {
   render() {
     return <div>
       <InputRange
-        maxValue={150}
+        maxValue={this.props.max}
         minValue={0}
-        value={parseInt(this.props.number)}
+        value={parseInt(this.props.value)}
         onChange={value => this.props.onChange(value)}
         onChangeComplete={value => this.props.onChangeComplete(value)} />
     </div>

@@ -17,12 +17,14 @@ type DeviceShadowDocument @aws_iam @aws_cognito_user_pools{
 
 type DeviceState @aws_iam @aws_cognito_user_pools {
   color: String
+  brightness: Int
   number: Int
   lightsOn: Boolean
 }
 
 input DeviceStateInput {
   color: String
+  brightness: Int
   number: Int
   lightsOn: Boolean
 }

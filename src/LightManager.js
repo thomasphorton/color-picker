@@ -19,6 +19,7 @@ class LightManager extends React.Component {
     super(props);
     this.state = {
       color: undefined,
+      brightness: undefined,
       number: undefined,
       lightsOn: undefined,
       registered: false
@@ -34,6 +35,8 @@ class LightManager extends React.Component {
     console.log(res);
     let deviceShadow = res.data.getDeviceShadow.shadow;
 
+    console.log(deviceShadow);
+
     let color = deviceShadow.reported.color;
     
     if (!color.startsWith('#')) {
@@ -41,6 +44,7 @@ class LightManager extends React.Component {
     }
     
     this.setState({ color });
+    this.setState({ brightness: deviceShadow.reported.brightness });
     this.setState({ number: deviceShadow.reported.number });
     this.setState({ lightsOn: deviceShadow.reported.lightsOn });
     this.setState({ registered: true });
@@ -55,6 +59,7 @@ class LightManager extends React.Component {
       thingName,
       state: {
         color: this.state.color,
+        brightness: this.state.brightness,
         number: this.state.number,
         lightsOn: this.state.lightsOn
       }
@@ -71,6 +76,14 @@ class LightManager extends React.Component {
   handleColorChange = (color) => {
     this.setState({ color: color.hex }, this.updateThing);
   };
+
+  handleBrightnessChangeComplete = (brightness) => {
+    this.setState({ brightness }, this.updateThing);
+  };
+
+  handleBrightnessChange = (brightness) => {
+    this.setState({ brightness });
+  }
 
   handleNumberChangeComplete = (number) => {
     this.setState({ number }, this.updateThing);
@@ -100,9 +113,17 @@ class LightManager extends React.Component {
                   color={ `${this.state.color}` }
                   onChangeComplete={ this.handleColorChange }
                 />
+                <h3>Brightness: {this.state.brightness}%</h3>
+                <RangePicker
+                  value={ `${this.state.brightness}` }
+                  max={ 100 }
+                  onChange={ this.handleBrightnessChange }
+                  onChangeComplete={ this.handleBrightnessChangeComplete }
+                />
                 <h3>Number of Lights: {this.state.number}</h3>
                 <RangePicker
-                  number={ `${this.state.number}` }
+                  value={ `${this.state.number}` }
+                  max={ 150 }
                   onChange={ this.handleNumberChange }
                   onChangeComplete={ this.handleNumberChangeComplete }
                 />

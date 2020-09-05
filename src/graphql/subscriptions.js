@@ -5,6 +5,7 @@ export const onUpdateDesiredState = /* GraphQL */ `
   subscription OnUpdateDesiredState($thingName: String) {
     onUpdateDesiredState(thingName: $thingName) {
       color
+      brightness
       number
       lightsOn
     }
