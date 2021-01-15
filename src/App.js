@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import ReactTwitchEmbedVideo from "react-twitch-embed-video";
 import LightManager from './LightManager';
 
 import { Container, Row, Col } from 'react-grid-system';
@@ -26,30 +25,19 @@ class App extends React.Component {
           {devices.map((device, i) => {
             switch(device.thingType) {
               case 'led-lightstrip':
-                return <Col sm={4} key={i}> 
+                return <Col sm={12} key={i}> 
                   <LightManager  client={this.state.client} device={ device } />
                 </Col>
               default:
-                return <Col sm={4} key={i}> 
+                return <Col sm={12} key={i}> 
                   <div><p>Unknown device type</p></div>
                 </Col> 
             }
           })}
-          <Col sm={8}>
-            <h2>Live Stream</h2>
-            <div style={{maxWidth:"100%"}}>
-            <ReactTwitchEmbedVideo
-              channel="thomasphorton"
-              layout="video"
-              height="400"
-              width="100%"/>
-            </div>
-          </Col>
         </Row>
       </Container>
       <div>
       
-        <p>check out the live feed of the lights <a href="https://twitch.tv/thomasphorton">on twitch</a></p>
         <p>see more about this on <a href='https://github.com/thomasphorton/color-picker'>github</a></p>
         <p>a <a href='https://thomasphorton.com/'>thomasphorton</a> thing</p>
       </div>
